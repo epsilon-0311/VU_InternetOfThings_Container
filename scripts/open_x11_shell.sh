@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 -p <project directory> -s <serial interface> " 1>&2; exit 1; }
+usage() { echo "Usage: $0 -p <project directory>" 1>&2; exit 1; }
 
 while getopts "p:s:" o; do
     case "${o}" in
@@ -31,6 +31,6 @@ else
 fi
 
 $CMD run --rm -it --name iot-x11-container -v /dev/usb:/dev/usb -v /run/udev:/run/udev:ro \
-	 --network host --privileged -v ${p}:/workingdir/project  --workdir /workingdir --group-add keep-groups \
+	 --network host --privileged -v ${p}:/workingdir/project  --workdir /workingdir/project  --group-add keep-groups \
 	 --ipc host -e DISPLAY=$DISPLAY  -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
      docker.io/lehrchristoph/vu_internet_of_things_container:latest
