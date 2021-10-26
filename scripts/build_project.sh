@@ -17,6 +17,10 @@ while getopts "p:b:" o; do
 done
 shift $((OPTIND-1))
 
+if [ -z "${board}" ]; then
+    board="thingy52_nrf52832"
+fi
+
 if [ -z "${board}" ] || [ -z "${p}" ]; then
     usage
 fi
