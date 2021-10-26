@@ -66,6 +66,7 @@ RUN dpkg --add-architecture i386 && \
 	libtool-bin \
 	locales \
 	make \
+	nano \
 	net-tools \
 	ninja-build \
 	openssh-client \
@@ -86,6 +87,7 @@ RUN dpkg --add-architecture i386 && \
 	valgrind \
 	wget \
 	ovmf \
+	vim \
 	xz-utils && \
 	wget ${WGET_ARGS} https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode_${RENODE_VERSION}_amd64.deb && \
 	apt install -y ./renode_${RENODE_VERSION}_amd64.deb && \
