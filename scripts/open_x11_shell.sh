@@ -7,9 +7,6 @@ while getopts "p:s:" o; do
 		p)
 			p=${OPTARG}
 			;;
-		s)
-			s=${OPTARG}
-			;;
 		*)
             usage
             ;;
@@ -17,7 +14,7 @@ while getopts "p:s:" o; do
 done
 shift $((OPTIND-1))
 
-if  [ -z "${j}" ] || [ -z "${s}" ] || [ -z "${p}" ]; then
+if  [ -z "${p}" ]; then
     usage
 fi
 
@@ -33,7 +30,7 @@ else
     exit 1
 fi
 
-$CMD run --rm -it --name iot-x11-container -v ${s}:/dev/ttyUSB0 -v /dev/usb :/dev/usb \
+$CMD run --rm -it --name iot-x11-container -v /dev/usb :/dev/usb \
 	-v /run/udev:/run/udev:ro --network host --privileged \
 	-v ${p}:/workingdir/project --workdir /workingdir --group-add keep-groups --ipc host \
 	--ipc host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw \

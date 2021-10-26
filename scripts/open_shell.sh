@@ -7,9 +7,6 @@ while getopts "p:s:" o; do
 		p)
 			p=${OPTARG}
 			;;
-		s)
-			s=${OPTARG}
-			;;
 		*)
             usage
             ;;
@@ -17,7 +14,7 @@ while getopts "p:s:" o; do
 done
 shift $((OPTIND-1))
 
-if  [ -z "${j}" ] || [ -z "${s}" ] || [ -z "${p}" ]; then
+if  [ -z "${p}" ]; then
     usage
 fi
 
@@ -33,6 +30,6 @@ else
     exit 1
 fi
 
-$CMD run --rm -it --name iot-container -v ${s}:/dev/ttyUSB0 -v /dev/usb:/dev/usb -v /run/udev:/run/udev:ro \
-	 --network host --privileged -v ${p}:/workingdir/  --workdir /workingdir --group-add keep-groups \
+$CMD run --rm -it --name iot-container -v /dev/usb:/dev/usb -v /run/udev:/run/udev:ro \
+	 --network host --privileged -v ${p}:/workingdir/project  --workdir /workingdir --group-add keep-groups \
 	docker.io/lehrchristoph/vu_internet_of_things_container:latest
