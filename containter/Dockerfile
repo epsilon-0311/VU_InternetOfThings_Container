@@ -79,10 +79,12 @@ RUN dpkg --add-architecture i386 && \
 	python-is-python3 \
 	qemu \
 	rsync \
+	screen \
 	socat \
 	srecord \
 	sudo \
 	texinfo \
+	tmux \
 	unzip \
 	valgrind \
 	wget \
@@ -120,6 +122,7 @@ RUN cd /tmp && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/downlo
 # install segger jlink
 RUN cd /tmp && wget --post-data="accept_license_agreement=accepted&submit=Download&nbspsoftware" https://www.segger.com/downloads/jlink/JLink_Linux_V756b_x86_64.deb && \
 	dpkg -i ./JLink_Linux_V756b_x86_64.deb && rm -rf JLink_Linux_V756b_x86_64.deb
+ENV PATH=/opt/SEGGER/JLink:$PATH
 
 # Install jlinknrf 
 RUN cd /tmp && wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-14-0/nRF-Command-Line-Tools_10_14_0_Linux64.zip &&\
