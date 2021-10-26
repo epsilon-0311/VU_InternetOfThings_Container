@@ -11,7 +11,7 @@ A set of scripts is located inside the `scripts` folder.
 
 `open_shell.sh` Starts the container with the usb devices mounted as well as the project folder 
 
-`open_x11_shell.sh` Does the same as `open_shell.sh`, but additionally provides the possibility of openen GUI applications
+`open_x11_shell.sh` Does the same as `open_shell.sh`, but additionally provides the possibility of openen GUI applications, e.g. for the segger RTT Viewer
 
 If any tool is missing please rais an issue.
 
