@@ -124,6 +124,6 @@ RUN cd /tmp && wget --post-data="accept_license_agreement=accepted&submit=Downlo
 # Install jlinknrf 
 RUN cd /tmp && wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-14-0/nRF-Command-Line-Tools_10_14_0_Linux64.zip &&\
 	unzip nRF-Command-Line-Tools_10_14_0_Linux64.zip && dpkg -i nRF-Command-Line-Tools_10_14_0_Linux64/nrf-command-line-tools_10.14.0_amd64.deb && \
-	rm -rf nRF-Command-Line-Tools_10_14_0_Linux64
+	rm -rf nRF-Command-Line-Tools_10_14_0_Linux64*
 
 WORKDIR /workingdir
