@@ -129,4 +129,7 @@ RUN cd /tmp && wget https://www.nordicsemi.com/-/media/Software-and-other-downlo
 	unzip nRF-Command-Line-Tools_10_14_0_Linux64.zip && dpkg -i nRF-Command-Line-Tools_10_14_0_Linux64/nrf-command-line-tools_10.14.0_amd64.deb && \
 	rm -rf nRF-Command-Line-Tools_10_14_0_Linux64*
 
+# install ESP32 toolchain
+RUN cd /workingdir && west espressif install && west espressif update
+
 WORKDIR /workingdir
