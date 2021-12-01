@@ -66,6 +66,7 @@ RUN dpkg --add-architecture i386 && \
 	libtool-bin \
 	locales \
 	make \
+	minicom \
 	nano \
 	net-tools \
 	ninja-build \
@@ -76,8 +77,11 @@ RUN dpkg --add-architecture i386 && \
 	python3-pip \
 	python3-ply \
 	python3-setuptools \
+	python3-tk \
+	python3-wheel \
 	python-is-python3 \
 	qemu \
+	qperf \
 	rsync \
 	screen \
 	socat \
@@ -108,11 +112,15 @@ RUN cd /tmp && wget ${WGET_ARGS} https://github.com/Kitware/CMake/releases/downl
 	rm -f ./cmake-${CMAKE_VERSION}-Linux-x86_64.sh
 
 # Zephyr and python dependencies
-
 RUN pip3 install wheel pip west 
 ENV PATH=/.local/bin:$PATH
 RUN west init /workingdir && cd /workingdir && west update
 RUN cd /workingdir && west zephyr-export && pip3 install -r /workingdir/zephyr/scripts/requirements.txt
+
+# install ESP32 toolchain
+RUN cd /workingdir && west espressif update && west espressif install && west zephyr-export
+ENV ESPRESSIF_TOOLCHAIN_PATH="/root/.espressif/tools/zephyr/xtensa-esp32-elf"
+ENV PATH=$ESPRESSIF_TOOLCHAIN_PATH/bin:$PATH
 
 # Install toolcahin
 RUN cd /tmp && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.13.1/zephyr-sdk-0.13.1-linux-x86_64-setup.run && \
@@ -128,8 +136,5 @@ ENV PATH=/opt/SEGGER/JLink:$PATH
 RUN cd /tmp && wget https://www.nordicsemi.com/-/media/Software-and-other-downloads/Desktop-software/nRF-command-line-tools/sw/Versions-10-x-x/10-14-0/nRF-Command-Line-Tools_10_14_0_Linux64.zip &&\
 	unzip nRF-Command-Line-Tools_10_14_0_Linux64.zip && dpkg -i nRF-Command-Line-Tools_10_14_0_Linux64/nrf-command-line-tools_10.14.0_amd64.deb && \
 	rm -rf nRF-Command-Line-Tools_10_14_0_Linux64*
-
-# install ESP32 toolchain
-RUN cd /workingdir && west espressif install && west espressif update
 
 WORKDIR /workingdir
