@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1366", ATTRS{idProduct}=="010[1234]", MODE="666", GROUP="plugdev" SYMLINK+="jlink/jlink_%n"

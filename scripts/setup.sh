@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # check if podman or docker is installed
 if [ -x "$(command -v podman)" ]; then
     echo 'Found podman installation' >&2
@@ -22,6 +24,9 @@ cd temp
 # get and install udev rules
 wget -O 60-openocd.rules https://sf.net/p/openocd/code/ci/master/tree/contrib/60-openocd.rules?format=raw
 sudo cp 60-openocd.rules /etc/udev/rules.d
+sudo cp ./45-jlink.rules /etc/udev/rules.d/
+sudo udevadm control --reload
+sudo udevadm trigger
 
 cd ..
 

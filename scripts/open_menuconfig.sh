@@ -30,7 +30,9 @@ else
     exit 1
 fi
 
-$CMD run --rm -it --name iot-menuconfig-container -v /dev/usb:/dev/usb -v /run/udev:/run/udev:ro \
+cnt=$(podman ps -a | grep iot-menuconfig-container | wc -l)
+
+$CMD run --rm -it --name iot-menuconfig-container-${cnt} -v /dev/usb:/dev/usb -v /run/udev:/run/udev:ro \
 	 --network host --privileged -v ${p}:/workingdir/project  --workdir /workingdir/project  --group-add keep-groups \
 	docker.io/lehrchristoph/vu_internet_of_things_container:latest bash -lc "west build -t menuconfig"
 
